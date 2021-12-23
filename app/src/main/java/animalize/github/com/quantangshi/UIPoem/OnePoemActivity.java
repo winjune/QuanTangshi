@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.sothree.slidinguppanel.PanelSlideListener;
+import com.sothree.slidinguppanel.PanelState;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import animalize.github.com.quantangshi.Data.RawPoem;
@@ -27,7 +29,7 @@ import animalize.github.com.quantangshi.StudyActivity;
 
 public class OnePoemActivity
         extends AppCompatActivity
-        implements PoemController, View.OnClickListener, SlidingUpPanelLayout.PanelSlideListener {
+        implements PoemController, View.OnClickListener, PanelSlideListener {
 
     private final static int STUDY_REQ_CODE = 666;
 
@@ -302,8 +304,8 @@ public class OnePoemActivity
 
     @Override
     public void onBackPressed() {
-        if (slider.getPanelState() != SlidingUpPanelLayout.PanelState.COLLAPSED) {
-            slider.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+        if (slider.getPanelState() != PanelState.COLLAPSED) {
+            slider.setPanelState(PanelState.COLLAPSED);
         } else {
             super.onBackPressed();
         }
@@ -361,16 +363,16 @@ public class OnePoemActivity
                 break;
 
             case R.id.show_tag:
-                if (slider.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                    slider.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
+                if (slider.getPanelState() == PanelState.COLLAPSED) {
+                    slider.setPanelState(PanelState.ANCHORED);
                 }
                 setView(TAG);
                 setBoldButton();
                 break;
 
             case R.id.show_recent:
-                if (slider.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                    slider.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
+                if (slider.getPanelState() == PanelState.COLLAPSED) {
+                    slider.setPanelState(PanelState.ANCHORED);
                 }
                 setView(RECENT);
                 setBoldButton();
@@ -379,8 +381,8 @@ public class OnePoemActivity
             case R.id.show_neighbour:
                 neighbourView.centerPosition();
 
-                if (slider.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                    slider.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
+                if (slider.getPanelState() == PanelState.COLLAPSED) {
+                    slider.setPanelState(PanelState.ANCHORED);
                 }
                 setView(NEIGHBOR);
                 setBoldButton();
@@ -419,17 +421,17 @@ public class OnePoemActivity
     }
 
     @Override
-    public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
-        if (newState == SlidingUpPanelLayout.PanelState.DRAGGING) {
+    public void onPanelStateChanged(View panel, PanelState previousState, PanelState newState) {
+        if (newState == PanelState.DRAGGING) {
             return;
-        } else if (newState == SlidingUpPanelLayout.PanelState.ANCHORED) {
+        } else if (newState == PanelState.ANCHORED) {
             Rect r = new Rect();
             if (swichFrame.getGlobalVisibleRect(r)) {
                 swichFrame.getLayoutParams().height = r.height();
                 swichFrame.requestLayout();
             }
             collapsed = false;
-        } else if (newState == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+        } else if (newState == PanelState.COLLAPSED) {
             collapsed = true;
         } else {
             swichFrame.setLayoutParams(
@@ -440,5 +442,10 @@ public class OnePoemActivity
             collapsed = false;
         }
         setBoldButton();
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

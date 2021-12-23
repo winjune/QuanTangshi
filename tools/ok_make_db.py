@@ -82,9 +82,9 @@ def load_poem():
 
             p = Poem(id, title, author, text)
 
-            m = re.search(r'[^\u0000-\uffff]', str(p))
-            if m:
-                raise Exception('出现non-BMP字符！')
+            # m = re.search(r'[^\u0000-\uffff]', str(p))
+            # if m:
+                # raise Exception('出现non-BMP字符！')
 
             lst.append(p)
             id += 1
