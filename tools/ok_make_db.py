@@ -17,8 +17,8 @@ class Poem:
         self.title = title
         self.author = author
 
-        text = re.sub(r'(？|！)(?!\n|$)', r'\1\n', text)
-        text = re.sub(r'^YY', '', text, flags=re.M)
+        #text = re.sub(r'(？|！)(?!\n|$)', r'\1\n', text)
+        #text = re.sub(r'^YY', '', text, flags=re.M)
         assert 'YY' not in text, '出现YY字符'
 
         self.text = text

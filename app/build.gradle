@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+    buildToolsVersion "31.0"
     compileSdkVersion 31
     defaultConfig {
         applicationId "animalize.github.com.quantangshi"
